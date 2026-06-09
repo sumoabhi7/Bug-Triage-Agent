@@ -1,0 +1,166 @@
+# ==========================================================
+# Codex Project Configuration
+# Project: AI GitHub Bug Triage Agent
+# ==========================================================
+
+# --------------------------
+# Model Configuration
+# --------------------------
+
+model_reasoning_effort = "high"
+personality = "pragmatic"
+
+# --------------------------
+# Safety / Execution
+# --------------------------
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# --------------------------
+# Search
+# --------------------------
+
+web_search = "disabled"
+
+# --------------------------
+# Feature Flags
+# --------------------------
+
+[features]
+hooks = false
+
+# --------------------------
+# Environment Variables
+# --------------------------
+
+[env]
+PROJECT_NAME = "bug-triage-agent"
+PROJECT_STAGE = "development"
+
+# --------------------------
+# Project Metadata
+# --------------------------
+
+[project]
+name = "bug-triage-agent"
+language = "python"
+python_version = "3.12"
+
+# --------------------------
+# Development Preferences
+# --------------------------
+
+[development]
+
+formatter = "ruff"
+linter = "ruff"
+test_runner = "pytest"
+
+architecture_style = "layered"
+
+preferred_patterns = [
+    "repository-pattern",
+    "service-layer",
+    "state-machine-workflow",
+    "dependency-injection",
+    "pydantic-domain-models"
+]
+
+avoid_patterns = [
+    "god-classes",
+    "business-logic-in-cli",
+    "monolithic-services",
+    "deep-inheritance",
+    "global-state"
+]
+
+# --------------------------
+# AI Coding Guidance
+# --------------------------
+
+[ai]
+
+prefer_typed_code = true
+prefer_async_code = false
+prefer_small_functions = true
+prefer_small_modules = true
+prefer_explicit_control_flow = true
+prefer_testable_code = true
+
+generate_docstrings = true
+generate_type_hints = true
+
+# --------------------------
+# Python Project Rules
+# --------------------------
+
+[python]
+
+package_manager = "uv"
+
+venv_path = ".venv"
+
+entrypoint = "bta.cli.main"
+
+# --------------------------
+# Git Rules
+# --------------------------
+
+[git]
+
+create_small_commits = true
+
+prefer_feature_branches = true
+
+allow_destructive_operations = false
+
+# --------------------------
+# Database Rules
+# --------------------------
+
+[database]
+
+engine = "postgresql"
+
+vector_store = "pgvector"
+
+orm = "sqlalchemy"
+
+migration_tool = "alembic"
+
+# --------------------------
+# LLM Rules
+# --------------------------
+
+[llm]
+
+provider = "ollama"
+
+primary_model = "qwen2.5-coder:7b"
+
+future_model = "qwen3:14b"
+
+# --------------------------
+# Retrieval Rules
+# --------------------------
+
+[retrieval]
+
+embedding_library = "sentence-transformers"
+
+embedding_model = "all-MiniLM-L6-v2"
+
+# --------------------------
+# Testing Rules
+# --------------------------
+
+[testing]
+
+framework = "pytest"
+
+require_tests_for_new_features = true
+
+prefer_unit_tests = true
+
+prefer_integration_tests = true
