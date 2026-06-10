@@ -82,5 +82,6 @@
 
   "workbench.startupEditor": "none",
 
-  "breadcrumbs.enabled": true
+"breadcrumbs.enabled": true,
+"python-envs.pythonProjects": []
 }

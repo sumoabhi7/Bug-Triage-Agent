@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+
+    container_name: bug-triage-postgres
+
+    environment:
+      POSTGRES_DB: bugtriage
+      POSTGRES_USER: bugtriage
+      POSTGRES_PASSWORD: bugtriage
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bugtriage -d bugtriage"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

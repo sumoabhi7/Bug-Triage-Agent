@@ -9,14 +9,14 @@ from bta.domain.shared import DomainModel
 
 class DuplicateGroup(DomainModel):
     id: UUID = Field(default_factory=uuid4)
-    primary_issue_number: int = Field(ge=1)
-    member_issue_numbers: list[int] = Field(default_factory=list)
-    similarity_scores: dict[int, float] = Field(default_factory=dict)
+    primary_case_id: UUID
+    member_case_ids: list[UUID] = Field(default_factory=list)
+    similarity_scores: dict[str, float] = Field(default_factory=dict)
     cluster_summary: str = ""
     threshold_used: float = Field(ge=0, le=1)
 
     @model_validator(mode="after")
-    def _primary_issue_must_be_a_member(self) -> DuplicateGroup:
-        if self.primary_issue_number not in self.member_issue_numbers:
-            raise ValueError("primary_issue_number must be included in member_issue_numbers")
+    def _primary_case_must_be_a_member(self) -> DuplicateGroup:
+        if self.primary_case_id not in self.member_case_ids:
+            raise ValueError("primary_case_id must be included in member_case_ids")
         return self
