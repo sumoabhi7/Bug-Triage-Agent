@@ -18,6 +18,7 @@ Build a CLI-first Python 3.12 application that:
 
 Architecture documentation is available in the `docs/` directory.
 
+Do not read these documents everytime you are told to read the AGENT.md file.
 Consult only the documents relevant to the current task.
 
 Examples:

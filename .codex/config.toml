@@ -48,19 +48,32 @@ language = "python"
 python_version = "3.12"
 
 # --------------------------
+# Architecture Rules
+# --------------------------
+
+[architecture]
+
+domain_layer_frozen = true
+
+canonical_state_object = "TriageCase"
+
+workflow_style = "state-machine"
+
+architecture_style = "layered"
+
+# --------------------------
 # Development Preferences
 # --------------------------
 
 [development]
 
 formatter = "ruff"
+
 linter = "ruff"
+
 test_runner = "pytest"
 
-architecture_style = "layered"
-
 preferred_patterns = [
-    "repository-pattern",
     "service-layer",
     "state-machine-workflow",
     "dependency-injection",
@@ -82,13 +95,19 @@ avoid_patterns = [
 [ai]
 
 prefer_typed_code = true
-prefer_async_code = false
+
+prefer_async_code = true
+
 prefer_small_functions = true
+
 prefer_small_modules = true
+
 prefer_explicit_control_flow = true
+
 prefer_testable_code = true
 
 generate_docstrings = true
+
 generate_type_hints = true
 
 # --------------------------
@@ -130,6 +149,20 @@ orm = "sqlalchemy"
 migration_tool = "alembic"
 
 # --------------------------
+# Storage Rules
+# --------------------------
+
+[storage]
+
+uuid_strategy = "gen_random_uuid"
+
+postgres_extension_vector = true
+
+postgres_extension_pgcrypto = true
+
+use_async_sqlalchemy = true
+
+# --------------------------
 # LLM Rules
 # --------------------------
 
@@ -164,3 +197,9 @@ require_tests_for_new_features = true
 prefer_unit_tests = true
 
 prefer_integration_tests = true
+
+require_storage_tests = true
+
+require_migration_tests = true
+
+require_vector_search_tests = true
