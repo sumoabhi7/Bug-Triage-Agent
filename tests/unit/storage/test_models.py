@@ -1,4 +1,7 @@
+from typing import cast
 from uuid import uuid4
+
+from sqlalchemy import Table
 
 from bta.domain import (
     AnalysisRun,
@@ -106,9 +109,13 @@ def test_storage_metadata_contains_required_tables_and_constraints() -> None:
         "triage_cases",
         "validation_results",
     }
-    assert ArtifactRecord.__table__.c.relative_path.unique is None
+
+    artifact_table = cast(Table, ArtifactRecord.__table__)
+
+    assert artifact_table.c.relative_path.unique is None
+
     assert "uq_artifacts_relative_path" in {
-        constraint.name for constraint in ArtifactRecord.__table__.constraints
+        constraint.name for constraint in artifact_table.constraints
     }
 
 

@@ -6,11 +6,13 @@ from logging.config import fileConfig
 
 from alembic import context
 from sqlalchemy import pool
+from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from bta.storage.models import Base
 
 config = context.config
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
@@ -30,17 +32,19 @@ def run_migrations_offline() -> None:
         compare_server_default=True,
         compare_type=True,
     )
+
     with context.begin_transaction():
         context.run_migrations()
 
 
-def _run_migrations(connection: object) -> None:
+def _run_migrations(connection: Connection) -> None:
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
         compare_server_default=True,
         compare_type=True,
     )
+
     with context.begin_transaction():
         context.run_migrations()
 
@@ -51,8 +55,10 @@ async def run_async_migrations() -> None:
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
+
     async with connectable.connect() as connection:
         await connection.run_sync(_run_migrations)
+
     await connectable.dispose()
 
 
