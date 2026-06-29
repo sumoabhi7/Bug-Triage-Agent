@@ -1,6 +1,6 @@
 # System Architecture
 
-> 7-layer architecture with explicit workflow orchestration, evidence-first reasoning, isolated patch validation, and PostgreSQL + pgvector persistence.
+> 7-layer architecture with explicit workflow orchestration, application services, evidence-first reasoning, isolated patch validation, and PostgreSQL + pgvector persistence.
 
 
 ---
@@ -17,7 +17,21 @@ User (Terminal)
                             │
                             ▼
 ╔══════════════════════════════════════════════════════════════╗
-║           LAYER 2: ORCHESTRATOR                             ║
+║          LAYER 2: APPLICATION SERVICES                      ║
+║                                                              ║
+║  AuthService                                                ║
+║  AnalyzeService                                             ║
+║  ScanService                                                ║
+║  DedupeService                                              ║
+║  FixService                                                 ║
+║  PublishService                                             ║
+║  StatusService                                              ║
+║  EvalService                                                ║
+╚═══════════════════════════╦══════════════════════════════════╝
+                            │
+                            ▼
+╔══════════════════════════════════════════════════════════════╗
+║           LAYER 3: ORCHESTRATOR                             ║
 ║                                                             ║
 ║  TriageStateMachine                                         ║
 ║  TriageOrchestrator                                         ║
@@ -28,7 +42,7 @@ User (Terminal)
           ▼                                   ▼
 
 ╔════════════════════╗      ╔══════════════════════════════════╗
-║    LAYER 3         ║      ║    LAYER 4: INTELLIGENCE        ║
+║    LAYER 4         ║      ║    LAYER 5: INTELLIGENCE        ║
 ║    GITHUB          ║      ║                                ║
 ║                    ║      ║  Parsing                       ║
 ║  PyGithub          ║─────►║  Retrieval                     ║
@@ -40,7 +54,7 @@ User (Terminal)
                                            ▼
 
 ╔══════════════════════════════════════════════════════════════╗
-║                LAYER 5: STORAGE                             ║
+║                LAYER 6: STORAGE                             ║
 ║                                                             ║
 ║ PostgreSQL + pgvector                                       ║
 ║ SQLAlchemy + Alembic                                        ║
@@ -50,14 +64,13 @@ User (Terminal)
                             ▼
 
 ╔══════════════════════════════════════════════════════════════╗
-║               LAYER 6: EVALUATION                           ║
+║               LAYER 7: EVALUATION                           ║
 ║                                                             ║
 ║ BenchmarkLoader                                             ║
 ║ Evaluator                                                   ║
 ║ Metrics                                                     ║
 ║ Report Generator                                            ║
 ╚══════════════════════════════════════════════════════════════╝
-```
 
 ---
 
@@ -99,6 +112,22 @@ Used for:
 * debugging
 * benchmarking
 * auditing
+
+---
+
+# Application Services
+Use-case boundary between the CLI and the orchestrator.
+
+Application services coordinate end-user actions such as:
+
+auth
+analyze
+scan
+dedupe
+fix
+publish
+status
+eval
 
 ---
 

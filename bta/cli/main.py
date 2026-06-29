@@ -1,11 +1,6 @@
-import typer
+from bta.cli.app import create_app
 
-app = typer.Typer(help="GitHub Bug Triage Agent")
-
-
-@app.command()
-def hello():
-    print("bug-triage-agent is ready")
+app = create_app()
 
 
 if __name__ == "__main__":
